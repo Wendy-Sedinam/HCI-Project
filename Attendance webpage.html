@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance System</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+        header {
+            background: #007bff;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            width: 100%
+        }
+        .hidden {
+            display: none;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            background: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            margin: 20px 0px;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo"><img src="Asset/knust-logo.webp" style="width: 100px; height: 100px;"></div>
+        <h1>Kwame Nkrumah University of Science And Technology </h1>
+        <div class="user-profile">
+            <span id="welcomeMessage">Welcome, User</span>
+            <button id="logout">Logout</button>
+        </div>
+    </header>
+    
+    <main>
+        <section id="dashboard">
+            <button onclick="markAttendance()">Mark Attendance</button>
+            <button onclick="viewHistory()">View Attendance History</button>
+            <p id="statusMessage"></p>
+        </section>
+
+        <section id="attendance" class="hidden">
+            <label for="studentName">Student Name:</label>
+            <input type="text" id="studentName" placeholder="Enter your name" required>
+            <label for="studentID">Student ID:</label>
+            <input type="text" id="studentID" placeholder="Enter your student ID" required>
+            <label for="indexNumber">Index Number:</label>
+            <input type="text" id="indexNumber" placeholder="Enter your index number" required>
+            <label for="course">Select Course:</label>
+            <select id="course">
+                <option>ACF 255</option>
+                <option>CSM 353</option>
+                <option>CSM 357</option>
+                <option>CSM 387</option>
+                <option>CSM 393</option>
+                <option>CSM 395</option>
+                <option>CSM 399</option>
+            </select>
+            <button onclick="confirmAttendance()">Confirm Attendance</button>
+            <button onclick="undoAttendance()">Undo</button>
+        </section>
+
+        <section id="history" class="hidden">
+            <h2>Attendance History</h2>
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Course</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>2025-02-11</td>
+                    <td>ACF 255</td>
+                    <td>Present</td>
+                </tr>
+            </table>
+        </section>
+    </main>
+
+    <script>
+        const ALLOWED_LAT = 37.7749; // Example latitude (adjust for your location)
+        const ALLOWED_LNG = -122.4194; // Example longitude (adjust for your location)
+        const RADIUS = 0.01; // Approximate allowed radius in degrees (adjust as needed)
+
+
+        function markAttendance() {
+            document.getElementById('attendance').classList.remove('hidden');
+            document.getElementById('dashboard').classList.add('hidden');
+            document.getElementById('history').classList.add('hidden');
+        }
+
+        function viewHistory() {
+            document.getElementById('history').classList.remove('hidden');
+            document.getElementById('dashboard').classList.add('hidden');
+        }
+
+        function confirmAttendance() {
+    let studentName = document.getElementById('studentName').value.trim();
+    let studentID = document.getElementById('studentID').value.trim();
+    let indexNumber = document.getElementById('indexNumber').value.trim();       
+    let selectedCourse = document.getElementById('course').value;
+
+    if (studentName === "" || studentID === "" || indexNumber === "") {
+                alert("Fields cannot be empty. Please enter all required details.");
+                return;
+            }
+            
+            if (studentID.length < 8) {
+                alert("Student ID must be at least 8 digits long.");
+                return;
+            }
+            
+            if (indexNumber.length < 7) {
+                alert("Index Number must be at least 7 digits long.");
+                return;
+            }
+
+    document.getElementById('statusMessage').innerText = `Attendance marked successfully for ${selectedCourse}!`;
+    document.getElementById('attendance').classList.add('hidden');
+    document.getElementById('dashboard').classList.remove('hidden');
+} () => {
+                alert("Geolocation is required to mark attendance.");
+            };
+        
+        
+function undoAttendance() {
+            document.getElementById('studentName').value = "";
+            document.getElementById('studentID').value = "";
+            document.getElementById('indexNumber').value = "";
+            document.getElementById('course').selectedIndex = 0;
+            document.getElementById('statusMessage').innerText = "Attendance undone. Please re-enter details.";
+            document.getElementById('attendance').classList.remove('hidden');
+            document.getElementById('dashboard').classList.add('hidden');
+        }
+
+        document.getElementById('logout').addEventListener('click', function() {
+    alert('Logging out...');
+    window.location.href = 'login.html'; // Redirect to login page
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const studentNameInput = document.getElementById('studentName');
+    const welcomeMessage = document.getElementById('welcomeMessage');
+    
+    studentNameInput.addEventListener('input', function() {
+        welcomeMessage.innerText = `Welcome, ${studentNameInput.value}`;
+    });
+});
+    </script>
+</body>
+</html>
