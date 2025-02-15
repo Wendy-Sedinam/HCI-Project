@@ -9,7 +9,7 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #f4f4f4;
+            background: blueviolet ;
             margin: 0;
             padding: 0;
             display: flex;
@@ -18,35 +18,65 @@
             height: 100vh;
         }
         header {
-            background: #007bff;
-            color: white;
+            background: purple blueviolet;
+            backdrop-filter: blur(10px);
+            color: black;
             padding: 15px;
             display: flex;
             justify-content: space-between;
             width: 100%
         }
+
+        .logo img {
+            width: 100px;
+            height: 100px;
+            opacity: 0.8;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+        }
+
         .hidden {
             display: none;
         }
         button {
             margin: 10px;
             padding: 10px 20px;
-            background: #28a745;
+            background: rgb(36, 206, 36);
             color: white;
             border: none;
             cursor: pointer;
+            transition: 0.3s;
         }
+        button:hover {
+            background: #6A0DAD;
+        }
+
         table {
-            width: 100%;
-            margin: 20px 0px;
+            width: 80%;
+            margin: 20px auto;
             border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: white;
         }
+
         table, th, td {
             border: 1px solid black;
         }
         th, td {
             padding: 10px;
             text-align: left;
+        }
+
+        input, select {
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            margin: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            color: black;
+        }
+        input::placeholder {
+            color:rgba(255, 255, 255, 0.7);
         }
     </style>
 </head>
